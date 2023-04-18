@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./new_index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    />
+    <script>
+      
+      function command(cmd){
+        const url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium";
+        const payload = { "input_text": cmd, "enable_memory": true, "enable_google_results": true };
+        const headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "X-API-KEY": ""
+        };
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(payload),
+            headers: headers
+        })
+        .then(response => response.json())
+        .then(data => {
+            const res = data.message.split("<")[0];
+            const result = res.replace(/\[.*?\]/g, "");
+            // use the result here
+            console.log(result);
+            speak(result);
+        })
+        .catch(error => console.log(error));
+
+      }
+
+
+      function startRecording() {
+        // Request permission to access the user's microphone
+        navigator.mediaDevices.getUserMedia({audio: true})
+          .then(function(stream) {
+            // Create a new instance of the SpeechRecognition API
+            var recognition = new window.webkitSpeechRecognition();
+            
+            // Set the input source to the user's microphone
+            recognition.inputStream = stream;
+            
+            // Set some recognition options
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            
+            // Start the speech recognition engine
+            recognition.start();
+            
+            var timeout;
+            
+            // Handle speech recognition results
+            recognition.onresult = function(event) {
+              // Get the transcript of the user's speech
+              var transcript = event.results[event.results.length - 1][0].transcript;
+              
+              // Update the text input field with the transcript
+              document.getElementById('text-input').value = transcript;
+              
+              // If a timeout is already set, clear it
+              if (timeout) {
+                clearTimeout(timeout);
+              }
+              
+              // Set a timeout to stop recording if the user stops speaking for 1 second
+              timeout = setTimeout(function() {
+                recognition.stop();
+                command(transcript);
+              }, 1000);
+            };
+
+            
+            // Handle speech recognition errors
+            recognition.onerror = function(event) {
+              console.error(event.error);
+            };
+          })
+          .catch(function(error) {
+            console.error(error);
+          });
+      }
+      
+      function speak(respo){
+        //Speaking....
+        // Create a new instance of the SpeechSynthesisUtterance object
+        var utterance = new SpeechSynthesisUtterance();
+
+        // Set the text to be spoken
+        utterance.text = respo;
+
+        // Set the speech synthesis voice
+        var voices = window.speechSynthesis.getVoices();
+        utterance.voice = voices[0];
+
+        // Set the speech rate (optional)
+        utterance.rate = 1.0;
+
+        // Set the pitch (optional)
+        utterance.pitch = 1.0;
+
+        // Set the volume (optional)
+        utterance.volume = 1.0;
+
+        // Call the speech synthesis API to speak the text
+        window.speechSynthesis.speak(utterance);
+      };
+      
+    </script>
+  </head>
+  <body>
+
+    <div class="desktop-1">
+
+      <div class="gptthe-assistant" id="site-name">
+        <span class="gptthe-assistant-txt-container">
+          <span>GPT.</span>
+          <span class="the-assistant">The Assistant</span>
+        </span>
+      </div>
+
+      <div class="try-asking-questions-container" id="main-text">
+        <p class="try-asking-questions">Try Asking questions like</p>
+        <p class="explain-quantum-computing">
+          “Explain quantum computing in simple terms......”
+        </p>
+      </div>
+
+      <input type="text" id="text-input" placeholder="Speak into the microphone...">
+
+      <img class="mic-1-icon" alt="" src="./public/mic-1@2x.png" />
+      <button class="mic-icon" onclick="startRecording()">
+        <img class="mic-icon-child" alt="" src="./public/ellipse-1.svg" /><img
+          class="mic-1-1"
+          alt=""
+          src="./public/mic-1-1@2x.png"
+        />
+      </button>
+
+
+      
+
+    </div>
+
+  </body>
+</html>

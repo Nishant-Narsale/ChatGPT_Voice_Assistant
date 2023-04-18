@@ -1,0 +1,117 @@
+.try-asking-questions {
+    margin: 0;
+    font-weight: 600;
+}
+
+.explain-quantum-computing {
+    margin: 0;
+}
+
+#text-input{
+    position: absolute;
+    top: 20rem;
+    left: 28rem;
+    display: inline-block;
+
+    background-color: #fff;
+    border: none;
+    color: rgb(70, 69, 69);
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+#text-input:focus{
+    outline: none;
+}
+
+.mic-1-icon,
+.try-asking-questions-container {
+    position: absolute;
+    top: 10rem;
+    left: -5rem;
+    display: inline-block;
+    width: 85.19rem;
+    height: 4.88rem;
+}
+
+.mic-1-icon {
+    top: 40.38rem;
+    left: 42.88rem;
+    width: 4.19rem;
+    height: 4.81rem;
+    object-fit: cover;
+    display: none;
+}
+
+.mic-icon-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 11.63rem;
+    height: 11.63rem;
+}
+
+.mic-1-1 {
+    position: absolute;
+    top: 3.13rem;
+    left: 3.63rem;
+    width: 4.31rem;
+    height: 5.38rem;
+    object-fit: cover;
+}
+
+.mic-icon {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    top: 25rem;
+    left: 30rem;
+    width: 11.63rem;
+    height: 11.63rem;
+}
+
+.the-assistant {
+    font-size: 1rem;
+}
+
+.gptthe-assistant-txt-container {
+    line-break: anywhere;
+    width: 100%;
+}
+
+.gptthe-assistant {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    width: 17.5rem;
+    height: 7.81rem;
+}
+
+.desktop-1 {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 64rem;
+    overflow: hidden;
+    text-align: center;
+    font-size: var(--font-size-19xl);
+    color: var(--color-black);
+    font-family: var(--font-inter);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
